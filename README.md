@@ -2,8 +2,8 @@
 
 Welcome to the **MinesweeperK** project! This repository accompanies
 the [Kotlearn YouTube series](https://www.youtube.com/watch?v=vS8XpdV-mvE&list=PL5GuNM-e28OX5DTcc1QZRHKozB71htnqJ),
-where we build a Minesweeper game using **Compose Multiplatform**. The game runs on **Android**, *
-*iOS**, and **desktop** platforms (Windows, macOS), following **clean architecture** and
+where we build a Minesweeper game using **Compose Multiplatform**. The game runs on **Android**,
+**iOS**, and **desktop** platforms (Windows, macOS), following **clean architecture** and
 a **multi-module project structure**.
 
 ---
@@ -58,11 +58,12 @@ video.
 
 ## Contributing
 
-This project is primarily for educational purposes, but contributions are welcome! If you’d like to improve or extend the project, feel free to open an issue or create a pull request.
+This project is primarily for educational purposes, but contributions are welcome! If you’d like to
+improve or extend the project, feel free to open an issue or create a pull request.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.txt).
+This project is licensed under the [0BSD License](LICENSE.txt).
 
 ---
 
