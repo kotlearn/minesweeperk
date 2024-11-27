@@ -1,10 +1,9 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
 }
@@ -23,7 +22,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ComposeApp"
+            baseName = "UiCore"
             isStatic = true
         }
     }
@@ -34,34 +33,32 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
-
+            api(compose.preview)
+            api(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
-            implementation(projects.ui.core)
-            implementation(projects.feature.menu)
-            implementation(projects.feature.settings)
-            implementation(projects.feature.highscores)
-            implementation(projects.feature.play)
+            api(compose.runtime)
+            api(compose.foundation)
+            api(compose.material)
+            api(compose.ui)
+            api(compose.components.resources)
+            api(compose.components.uiToolingPreview)
+        }
 
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
-        }
         desktopMain.dependencies {
-            
+            api(compose.desktop.currentOs)
+            api(libs.kotlinx.coroutines.swing)
         }
+
     }
 }
 
 android {
-    namespace = "com.kotlearn.minesweeperk"
+    namespace = "com.kotlearn.minesweeperk.ui.core"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.kotlearn.minesweeperk"
         minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
     }
     packaging {
         resources {
@@ -76,21 +73,5 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-}
-
-dependencies {
-    debugImplementation(compose.uiTooling)
-}
-
-compose.desktop {
-    application {
-        mainClass = "com.kotlearn.minesweeperk.MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.kotlearn.minesweeperk"
-            packageVersion = "1.0.0"
-        }
     }
 }
