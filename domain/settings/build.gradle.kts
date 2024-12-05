@@ -1,7 +1,5 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
@@ -23,6 +21,8 @@ kotlin {
 
         commonMain.dependencies {
             implementation(projects.data.settings)
+
+            implementation(libs.koin.core)
         }
 
     }

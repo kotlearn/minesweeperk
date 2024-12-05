@@ -4,8 +4,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
@@ -33,6 +31,8 @@ kotlin {
 
         commonMain.dependencies {
             implementation(projects.data.core)
+
+            implementation(libs.koin.core)
         }
 
     }
