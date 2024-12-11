@@ -15,16 +15,17 @@ a **multi-module project structure**.
 The `main` branch contains the **latest version** of the project, including updates and refinements
 made throughout the series. It represents the complete and up-to-date MinesweeperK project.
 
-### Episode Branches
+### Episodes
 
 Each episode of the series has its own branch, which represents a **snapshot** of the project at the
 end of that episode. This allows you to easily explore or download the code relevant to any specific
 video.
 
-- **Example branch naming:**
-    - `01-project-setup`
-    - `02-clean-architecture`
-    - `03-koin-setup`
+- Introduction to the Series - [Video](https://youtu.be/vS8XpdV-mvE)
+- [Setting Up a Compose Multiplatform Project: Project Creation and Dependencies](https://github.com/kotlearn/minesweeperk/tree/01-project-setup) - [Video](https://youtu.be/ND1QTnafqlg)
+- [How to Structure a Clean, Multi-Module Compose Multiplatform App](https://github.com/kotlearn/minesweeperk/tree/02-adding-modules) - [Video](https://youtu.be/D_SIknHwIIw)
+- [Koin Best Practices for Compose Multiplatform](https://github.com/kotlearn/minesweeperk/tree/03-koin-setup) - [Video](https://youtu.be/goZc6U-KRew)
+- [Creating Global Padding and Dimensions in Jetpack Compose](https://github.com/kotlearn/minesweeperk/tree/04-global-padding) - [Video](https://youtu.be/rt0YZydHSww)
 
 ---
 
@@ -34,7 +35,7 @@ video.
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/minesweeperk.git
+   git clone https://github.com/kotlearn/minesweeperk.git
    cd minesweeperk
    ```
 2. **Check out a specific episode branch:**
