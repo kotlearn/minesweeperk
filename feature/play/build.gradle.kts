@@ -61,6 +61,10 @@ android {
             isMinifyEnabled = false
         }
     }
+    compose.resources {
+        publicResClass = true
+        generateResClass = always
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

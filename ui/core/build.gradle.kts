@@ -43,6 +43,7 @@ kotlin {
             api(compose.ui)
             api(compose.components.resources)
             api(compose.components.uiToolingPreview)
+            api(compose.materialIconsExtended)
         }
 
         desktopMain.dependencies {
