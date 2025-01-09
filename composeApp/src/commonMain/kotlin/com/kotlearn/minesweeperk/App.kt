@@ -8,6 +8,8 @@ import com.kotlearn.minesweeperk.feature.highscores.Highscores
 import com.kotlearn.minesweeperk.feature.highscores.highscoresRoutes
 import com.kotlearn.minesweeperk.feature.menu.Menu
 import com.kotlearn.minesweeperk.feature.menu.menuRoutes
+import com.kotlearn.minesweeperk.feature.settings.Settings
+import com.kotlearn.minesweeperk.feature.settings.settingsRoutes
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.core.module.Module
@@ -33,9 +35,12 @@ fun App(
                     goToHighscores = {
                         navController.navigate(Highscores)
                     },
-                    goToSettings = {},
+                    goToSettings = {
+                        navController.navigate(Settings)
+                    },
                 )
                 highscoresRoutes()
+                settingsRoutes()
             }
         }
     }

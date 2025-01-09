@@ -27,6 +27,7 @@ video.
 - [Koin Best Practices for Compose Multiplatform](https://github.com/kotlearn/minesweeperk/tree/03-koin-setup) - [Video](https://youtu.be/goZc6U-KRew)
 - [Creating Global Padding and Dimensions in Jetpack Compose](https://github.com/kotlearn/minesweeperk/tree/04-global-padding) - [Video](https://youtu.be/rt0YZydHSww)
 - [Minesweeper UI with Jetpack Compose](https://github.com/kotlearn/minesweeperk/tree/05-minesweeper-ui) - [Video](https://youtu.be/kaDOKzUk0ys)
+- [Minesweeper UI with Jetpack Compose](https://github.com/kotlearn/minesweeperk/tree/06-datastore-preferences) - [Video](https://youtu.be/xGw4p4OWZ6Q)
 
 ---
 
