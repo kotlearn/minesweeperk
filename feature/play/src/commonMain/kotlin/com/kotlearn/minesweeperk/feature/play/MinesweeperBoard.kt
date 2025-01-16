@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -27,11 +28,11 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun MinesweeperBoard(
     tileStates: List<List<TileState>>,
     modifier: Modifier = Modifier,
+    boardWidth: Int = tileStates.size,
+    boardHeight: Int = tileStates.firstOrNull()?.size ?: 0,
     textStyle: TextStyle = TextStyle(),
 ) {
     if (tileStates.isNotEmpty()) {
-        val boardHeight = remember { tileStates.first().size }
-        val boardWidth = remember { tileStates.size }
         BoxWithConstraints(
             contentAlignment = Alignment.Center,
             modifier = modifier,
@@ -95,6 +96,7 @@ private fun Tile(
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
+            .testTag("tile")
             .background(color = LocalMinesweeperBoardColorScheme.current.background)
             .run {
                 if (state is TileState.Revealed) {

@@ -1,3 +1,4 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -44,6 +45,8 @@ kotlin {
             api(compose.components.resources)
             api(compose.components.uiToolingPreview)
             api(compose.materialIconsExtended)
+            @OptIn(ExperimentalComposeLibrary::class)
+            api(compose.uiTest)
         }
 
         desktopMain.dependencies {
