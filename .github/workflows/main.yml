@@ -1,0 +1,148 @@
+name: Build and Create Releases
+
+on:
+  push:
+    tags:
+      - v*
+  workflow_dispatch:
+
+jobs:
+  create-release:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+  build-android:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    needs: create-release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Decode Keystore
+        id: decode_keystore
+        uses: timheuer/base64-to-file@v1
+        with:
+          fileName: "keystore"
+          encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE_64 }}
+
+      - name: Build Android AAB
+        run: ./gradlew composeApp:assembleRelease -Pandroid.injected.signing.store.file=${{ steps.decode_keystore.outputs.filePath }} -Pandroid.injected.signing.store.password=${{ secrets.ANDROID_KEYSTORE_STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.ANDROID_KEYSTORE_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+
+      - name: Build Android APK
+        run: ./gradlew composeApp:bundleRelease -Pandroid.injected.signing.store.file=${{ steps.decode_keystore.outputs.filePath }} -Pandroid.injected.signing.store.password=${{ secrets.ANDROID_KEYSTORE_STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.ANDROID_KEYSTORE_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+
+      - name: Upload Release AAB Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.output1 }}
+          asset_path: composeApp/build/outputs/bundle/release/composeApp-release.aab
+          asset_name: minesweeperk-${{ github.ref_name }}.aab
+          asset_content_type: application/x-authorware-bin
+
+      - name: Upload Release APK Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.output1 }}
+          asset_path: composeApp/build/outputs/apk/release/composeApp-release.apk
+          asset_name: minesweeperk-${{ github.ref_name }}.apk
+          asset_content_type: application/vnd.android.package-archive
+
+  build-windows:
+    permissions: write-all
+    runs-on: windows-latest
+    needs: create-release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Build .msi
+        run: ./gradlew composeApp:packageReleaseMsi
+
+      - name: Get Version Name
+        id: get_version_name
+        shell: bash
+        run: echo "version_name=$(./.github/scripts/get_version_name.sh versions.properties)" >> $GITHUB_OUTPUT
+
+      - name: Upload Release MSI Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.output1 }}
+          asset_path: composeApp/build/compose/binaries/main-release/msi/MinesweeperK-${{ steps.get_version_name.outputs.version_name }}.msi
+          asset_name: minesweeperk-${{ github.ref_name }}.msi
+          asset_content_type: application/octet-stream
+
+  build-macos:
+    permissions: write-all
+    runs-on: macos-latest
+    needs: create-release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Build .dmg
+        run: ./gradlew composeApp:packageReleaseDmg
+
+      - name: Get Version Name
+        id: get_version_name
+        shell: bash
+        run: echo "version_name=$(./.github/scripts/get_version_name.sh versions.properties)" >> $GITHUB_OUTPUT
+
+      - name: Upload Release DMG Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.output1 }}
+          asset_path: composeApp/build/compose/binaries/main-release/dmg/MinesweeperK-${{ steps.get_version_name.outputs.version_name }}.dmg
+          asset_name: minesweeperk-${{ github.ref_name }}.dmg
+          asset_content_type: application/octet-stream
