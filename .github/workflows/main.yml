@@ -134,7 +134,10 @@ jobs:
 
       - name: Get Version Name
         id: get_version_name
-        run: echo "version_name=$(./.github/scripts/get_version_name.sh versions.properties)" >> $GITHUB_OUTPUT
+        shell: bash
+        run: |
+          chmod +x ./.github/scripts/get_version_name.sh
+          echo "version_name=$(./.github/scripts/get_version_name.sh versions.properties)" >> $GITHUB_OUTPUT
 
       - name: Upload Release DMG Asset
         uses: actions/upload-release-asset@v1
