@@ -104,7 +104,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.kotlearn.minesweeperk"
+            packageName = "MinesweeperK"
             packageVersion = versionNameProperty
             description = "MinesweeperK by Kotlearn"
             copyright = "Copyright (c) 2025, Kotlearn"
