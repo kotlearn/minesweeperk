@@ -67,6 +67,12 @@ kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", versio
 kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 
+# Dependencies of the included build-logic
+android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+compose-gradlePlugin = { module = "org.jetbrains.compose:org.jetbrains.compose.gradle.plugin", version.ref = "compose-plugin" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+
 [bundles]
 kotlin = ["kotlinx-dateTime", "coroutines-core", "kotlinx-serialization"]
 koin-compose = ["koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation"]
@@ -82,3 +88,11 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }
+
+# Custom plugins
+kotlearn-composeMultiplatform = { id = "com.kotlearn.composeMultiplatform" }
+kotlearn-kotlinMultiplatform = { id = "com.kotlearn.kotlinMultiplatform" }
+kotlearn-androidLibrary = { id = "com.kotlearn.androidLibrary" }
+kotlearn-androidApplication = { id = "com.kotlearn.androidApplication" }
+kotlearn-desktopApplication = { id = "com.kotlearn.desktopApplication" }
+kotlearn-roomMultiplatform = { id = "com.kotlearn.roomMultiplatform" }
