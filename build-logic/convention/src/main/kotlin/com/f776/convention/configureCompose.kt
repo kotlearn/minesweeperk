@@ -2,8 +2,10 @@ package com.f776.convention
 
 import org.gradle.api.Project
 import org.jetbrains.compose.ComposePlugin
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
+@OptIn(ExperimentalComposeLibrary::class)
 internal fun Project.configureCompose(
     extension: KotlinMultiplatformExtension,
     composeDeps: ComposePlugin.Dependencies
@@ -11,19 +13,19 @@ internal fun Project.configureCompose(
     sourceSets.apply {
         val desktopMain = getByName("desktopMain")
         commonMain.dependencies {
-            api(composeDeps.runtime)
-            api(composeDeps.foundation)
-            api(composeDeps.material3AdaptiveNavigationSuite)
-            api(composeDeps.ui)
-            api(composeDeps.components.resources)
-            api(composeDeps.components.uiToolingPreview)
-            api(composeDeps.material3)
-            api(libs.findLibrary("adaptive.layout").get())
+            implementation(composeDeps.runtime)
+            implementation(composeDeps.foundation)
+            implementation(composeDeps.material3AdaptiveNavigationSuite)
+            implementation(composeDeps.ui)
+            implementation(composeDeps.components.resources)
+            implementation(composeDeps.components.uiToolingPreview)
+            implementation(composeDeps.material3)
+            implementation(composeDeps.uiTest)
         }
 
         androidMain.dependencies {
-            api(composeDeps.preview)
-            api(libs.findLibrary("androidx.activity.compose").get())
+            implementation(composeDeps.preview)
+            implementation(libs.findLibrary("androidx.activity.compose").get())
         }
 
 
@@ -32,8 +34,8 @@ internal fun Project.configureCompose(
         }
 
         desktopMain.dependencies {
-            api(composeDeps.desktop.currentOs)
-            api(libs.findLibrary("kotlinx.coroutines.swing").get())
+            implementation(composeDeps.desktop.currentOs)
+            implementation(libs.findLibrary("kotlinx.coroutines.swing").get())
         }
     }
 }

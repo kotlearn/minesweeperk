@@ -10,7 +10,7 @@ internal fun Project.configureKotlinAndroid(
 
     //get module name from module path
     val moduleName = path.split(":").drop(2).joinToString(".")
-    namespace = if(moduleName.isNotEmpty()) "com.f776.$moduleName" else "com.f776"
+    namespace = if(moduleName.isNotEmpty()) "com.kotlearn.minesweeperk.$moduleName" else "com.kotlearn.minesweeperk"
 
     compileSdk = libs.findVersion("android-compileSdk").get().requiredVersion.toInt()
     defaultConfig {

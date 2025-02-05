@@ -5,10 +5,10 @@ import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlearn.kotlinMultiplatform)
+    alias(libs.plugins.kotlearn.androidApplication)
+    alias(libs.plugins.kotlearn.composeMultiplatform)
+    alias(libs.plugins.kotlearn.desktopApplication)
 }
 
 val versionPropertiesInputStream = FileInputStream("$rootDir/versions.properties")
