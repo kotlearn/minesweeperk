@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.LibraryExtension
 import com.f776.convention.configureCompose
 import com.f776.convention.libs
 import org.gradle.api.Plugin

@@ -20,6 +20,7 @@ internal fun Project.configureCompose(
             implementation(composeDeps.components.resources)
             implementation(composeDeps.components.uiToolingPreview)
             implementation(composeDeps.material3)
+            implementation(composeDeps.materialIconsExtended)
             implementation(composeDeps.uiTest)
         }
 
